@@ -1,0 +1,27 @@
+export default function App(){
+const bank=[
+{q:'Từ nào là từ chỉ màu sắc?',a:['đỏ','chạy','học'],c:0},
+{q:'Từ nào chỉ đặc điểm?',a:['ngoan ngoãn','đi','viết'],c:0},
+{q:'Từ nào chỉ kích thước?',a:['to','ăn','ngủ'],c:0},
+{q:'Từ nào chỉ hình dáng?',a:['tròn','đếm','hát'],c:0},
+{q:'Trong câu "Bông hoa thơm ngát", từ chỉ đặc điểm là?',a:['bông hoa','thơm ngát','là'],c:1},
+{q:'Câu nào thuộc kiểu Ai thế nào?',a:['Lan rất chăm chỉ.','Lan đọc sách.','Lan đến trường.'],c:0},
+{q:'Từ nào chỉ màu sắc?',a:['xanh','chơi','nhảy'],c:0},
+{q:'Từ nào chỉ đặc điểm của người?',a:['hiền lành','đá bóng','uống nước'],c:0},
+{q:'Trong câu "Mái tóc bà bạc trắng", từ chỉ đặc điểm là?',a:['mái tóc','bà','bạc trắng'],c:2},
+{q:'Từ nào chỉ kích thước?',a:['dài','đọc','vẽ'],c:0},
+{q:'Câu nào là câu Ai thế nào?',a:['Con mèo rất dễ thương.','Con mèo bắt chuột.','Con mèo chạy nhanh.'],c:0},
+{q:'Từ nào không phải từ chỉ đặc điểm?',a:['cao','đẹp','chạy'],c:2},
+{q:'Từ nào chỉ mùi vị?',a:['ngọt ngào','đi bộ','ca hát'],c:0},
+{q:'Trong câu "Quả cam vàng óng", từ chỉ đặc điểm là?',a:['quả cam','vàng óng','quả'],c:1},
+{q:'Từ nào chỉ hình dáng?',a:['vuông','nghe','nói'],c:0}
+];
+const qs=React.useMemo(()=>[...bank].sort(()=>Math.random()-0.5).slice(0,10),[]);
+return <Game questions={qs}/>;
+}
+function Game({questions}){
+const [i,setI]=React.useState(0),[s,setS]=React.useState(0),[done,setDone]=React.useState(false);
+const pick=(x)=>{if(x===questions[i].c)setS(v=>v+1); if(i<9)setI(i+1); else setDone(true)};
+if(done)return <div className='p-6'><h1 className='text-3xl font-bold'>🎉 Hoàn thành</h1><p>Điểm: {s}/10</p><button className='border px-3 py-2 mt-3' onClick={()=>location.reload()}>Chơi lại</button></div>;
+return <div className='p-6 max-w-xl mx-auto'><h1 className='text-2xl font-bold mb-4'>TỪ CHỈ ĐẶC ĐIỂM - AI THẾ NÀO?</h1><div>Câu {i+1}/10</div><h2 className='font-semibold my-4'>{questions[i].q}</h2>{questions[i].a.map((t,k)=><button key={k} onClick={()=>pick(k)} className='block w-full border rounded p-2 my-2 text-left'>{t}</button>)}</div>
+}
